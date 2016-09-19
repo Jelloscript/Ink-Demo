@@ -1,0 +1,245 @@
+﻿
+@{
+    ViewBag.Title = "Sent";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<section>
+
+    <div class="panel-body" data-ng-controller="connectionInviteController as dashboard" id="connectionInviteCtrler">
+
+        <h3 style="color:#fff">Your Sent invitations</h3>
+        <div class="row container">
+            <!--
+                the ng-repeat is creating a for loop to iterate through the events.items array.
+                events.items is an array of events which is pulled from the API as JSON data and attached to the controller
+                in the ajax call's success handler.
+                see https://docs.angularjs.org/api/ng/directive/ngRepeat
+            -->
+            <div class="col-11 col-md-8 panel" data-ng-repeat="ci in dashboard.items">
+               <div class="col-md-3">
+                   <img class="img-responsive thumb128" ng-src="{{ci.requestedInfo.avatar.fullUrl}}" />
+               </div>
+                <div class="col-md-2 col-md-offset-4">
+                    <h3>{{ci.requestedInfo.profileName}}</h3>
+                    <a>{{ci.requestedInfo.profileEmail}}</a>
+                    <a>{{ci.requestedInfo.profileWebsite}}</a>
+                </div>
+                <div class="col-md-1 col-md-offset-1">
+                    <br />
+                    <br />
+                    <a class="btn btn-success">Invitation Sent!</a>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<script type="text/ng-template" id="modalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{mc.eventInvite.title}}</h3>
+    </div>
+    <div class="modal-body">
+        <ul>
+            <li>
+                <a class="btn btn-primary" ng-click="mc.rsvp(1)">Attending</a>
+            </li>
+            <li>
+                <a class="btn btn-primary" ng-click="mc.rsvp(3)">Maybe</a>
+            </li>
+            <li>
+                <a class="btn btn-primary" ng-click="mc.rsvp(2)">Not Attending</a>
+            </li>
+        </ul>
+    </div>
+</script>
+
+
+@section scripts
+{
+
+<script src="~/Scripts/sabio.services.connectionInvites.js"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
+    <script type="text/javascript">
+
+        (function () {
+            "use strict";
+
+
+            angular.module(APPNAME)
+                .factory('$connectionInviteService', connectionInviteServiceFactory);
+
+            //  manually identify dependencies for injection: https://github.com/johnpapa/angular-styleguide#style-y091
+            //  $sabio is a reference to sabio.page object. sabio.page is created in sabio.js
+            connectionInviteServiceFactory.$inject = ['$baseService', '$sabio'];
+
+            function connectionInviteServiceFactory($baseService, $sabio) {
+                //  sabio.page has been injected as $sabio so we can reference anything that is attached to sabio.page here
+                var aSabioServiceObject = sabio.services.connectionInvites;
+
+                //  merge the jQuery object with the angular base service to simulate inheritance
+                var newService = $baseService.merge(true, {}, aSabioServiceObject, $baseService);
+
+                return newService;
+            }
+        })();
+
+
+
+        (function () {
+            "use strict";
+
+            angular.module(APPNAME)
+                .controller('connectionInviteController', connectionInviteController);
+
+            connectionInviteController.$inject = ['$scope', '$baseController', "$connectionInviteService", "$uibModal"];
+
+            function connectionInviteController(
+                $scope
+                , $baseController
+                , $connectionInviteService
+                , $uibModal) {
+
+                //  controllerAs with vm syntax: https://github.com/johnpapa/angular-styleguide#style-y032
+                var vm = this;//this points to a new {}
+                vm.items = null;
+                vm.selectedEvent = null;
+                vm.$uibModal = $uibModal;
+
+                vm.$connectionInviteService = $connectionInviteService;
+                vm.$scope = $scope;
+
+                //  bindable members (functions) always go up top while the "meat" of the functions go below: https://github.com/johnpapa/angular-styleguide#style-y033
+                vm.receiveItems = _receiveItems;
+                vm.onGetconnectionInviteError = _onGetconnectionInviteError;
+
+
+                vm.onEventError = _onEventError;
+                vm.openModal = _openModal;
+
+                //-- this line to simulate inheritance
+                $baseController.merge(vm, $baseController);
+
+                //this is a wrapper for our small dependency on $scope
+                vm.notify = vm.$connectionInviteService.getNotifier($scope);
+
+
+                initialize();
+
+                function initialize() {
+                    vm.$connectionInviteService.getMySentConnectionInvites(vm.receiveItems, _onGetconnectionInviteError);
+                } //AJAX CALL HERE AFTER NAME IN SERVICES FOLDERRR
+
+                function _receiveItems(data) {
+                    //this receives the data and calls the special
+                    //notify method that will trigger ng to refresh UI
+                    vm.notify(function () {
+                        vm.items = data.items;
+                    });
+                }
+
+
+                function _onGetconnectionInviteError(jqXhr, error) {
+                    console.error(error);
+                }
+
+
+                function _openModal(ev) {
+                    var modalInstance = vm.$uibModal.open({
+                        animation: true,
+                        templateUrl: 'modalContent.html',
+                        controller: 'modalController as mc',
+                        size: 'sm',
+                        resolve: {
+                            eventInvite: function () {
+                                return ev;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function (selectedItem) {
+                        vm.modalSelected = selectedItem;
+                    }, function () {
+                        console.log('Modal dismissed at: ' + new Date());
+                    });
+                }
+
+
+                function _selectEvent(anEv) {
+                    console.log(anEv);
+                    vm.selectedEvent = anEv;
+                }
+
+                function _onEventError(jqXhr, error) {
+                    console.error(error);
+                }
+
+
+            }
+        })();
+
+
+        //MODAL CONTROLLER
+        (function () {
+            "use strict";
+
+            angular.module(APPNAME)
+                .controller('modalController', ModalController);
+
+            ModalController.$inject = ['$scope', '$baseController', '$connectionInviteService', '$uibModalInstance', 'connectionInvite'];
+
+            function ModalController(
+                $scope
+                , $baseController
+                , $connectionInviteService
+                , $uibModalInstance
+                , connectionInvite
+                ) {
+
+                var vm = this;
+
+                $baseController.merge(vm, $baseController);
+                vm.status = 0;
+                vm.$scope = $scope;
+                vm.$uibModalInstance = $uibModalInstance;
+                vm.onEventError = _onEventError;
+                vm.rsvp = _rsvp;
+                vm.connectionInvite = connectionInvite;
+                vm.$connectionInviteService = $connectionInviteService;
+
+                vm.ok = function () {
+                    vm.$uibModalInstance.close(vm.selected.item);
+                };
+
+                vm.cancel = function () {
+                    vm.$uibModalInstance.dismiss('cancel');
+                };
+
+                function _onEventError(jqXhr, error) {
+                    console.error(error);
+                };
+
+                function _rsvp(status) {
+                    var payload = {};
+                    payload.RsvpStatus = status;
+                    payload.EventId = event.id;
+                    vm.$connectionInviteService.post(payload, vm.cancel, vm.onEventError);
+                };
+
+
+
+            }
+
+        })();
+
+
+
+
+    </script>
+}
+

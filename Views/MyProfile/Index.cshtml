@@ -1,0 +1,609 @@
+﻿@{
+    ViewBag.Title = "My Profile";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<!-- Main section-->
+<section>
+    <!-- Page content-->
+    <div class="content-wrapper">
+
+        <div class="row">
+            <div class="col-md-12 panel panel-primary">
+                <div id="userTheme" style="" class="bg-cover">
+                    <div class="p-xl text-center text-white">
+                        <img id="Avatar" src="" alt="Contact" class="center-block img-responsive img-circle img-thumbnail thumb128" />
+                        <h3 id="currentUser" class="m0 text-bold">Current User</h3>
+                        <p>Sweet tagline</p>
+                    </div>
+                </div>
+                <div id="Tabs" class="panel panel-info">
+                    <div class="panel-heading text-center">Ink ♒ Navigation</div>
+                    <div class="panel-body">
+                        <div role="tabpanel">
+                            <!-- Nav tabs-->
+                            <ul role="tablist" class="nav nav-tabs">
+
+                                <li role="presentation" class="active">
+                                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#UploadAvatarTab" aria-controls="UploadAvatarTab" role="tab" data-toggle="tab">UploadAvatar</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#UploadThemeTab" aria-controls="UploadThemeTab" role="tab" data-toggle="tab">Upload Theme</a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes-->
+                            <div class="tab-content">
+                                <!-- user info tab begins -->
+                                <div id="profile" role="tabpanel" class="tab-pane active">
+                                    <div class="h3 text-center">Contact Information</div>
+                                    <form class="form-horizontal" id="currentUserProfile">
+                                        <div class="row pv-lg">
+
+                                            <div class="col-lg-7">
+
+                                                <div class="form-group">
+                                                    <label for="profileName" class="col-sm-2 control-label">First Name</label>
+                                                    <div class="col-sm-10">
+                                                        <input id="profileName" name="profileName" type="text" placeholder="Enter Name" value="" class="form-control profileName" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="profileLastName" class="col-sm-2 control-label">Last Name</label>
+                                                    <div class="col-sm-10">
+                                                        <input id="profileLastName" name="profileLastName" type="text" placeholder="Enter Name" value="" class="form-control profileLastName" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="profilePhone" class="col-sm-2 control-label">Phone</label>
+                                                    <div class="col-sm-10">
+                                                        <input id="profilePhone" name="profilePhone" type="text" placeholder="(123) 465 789" value="" class="form-control formPhone profilePhone" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="profileMobile" class="col-sm-2 control-label">Mobile</label>
+                                                    <div class="col-sm-10">
+                                                        <input id="profileMobile" name="profileMobile" type="text" placeholder="(12) 123 987 465" value="" class="form-control profileMobile" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tagline" class="col-sm-2 control-label">Tagline</label>
+                                                    <div class="col-sm-10">
+                                                        <input id="tagline" name="tagline" type="text" placeholder="Your quote" value="" class="form-control tagline" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="profileWebsite" class="col-sm-2 control-label">Website</label>
+                                                    <div class="col-sm-10">
+                                                        <input id="profileWebsite" name="profileWebsite" type="text" placeholder="http://some.wesbite.com" value="" class="form-control profileWebsite" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="profileAddress" class="col-sm-2 control-label">Address</label>
+                                                    <div class="col-sm-10">
+                                                        <input id="profileAddress" name="profileAddress" row="4" placeholder="Some nice Street, 1234" value="" class="form-control profileAddress" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="profileCompany" class="col-sm-2 control-label">Company</label>
+                                                    <div class="col-sm-10">
+                                                        <input id="profileCompany" name="profileCompany" type="text" placeholder="No Company" value="" class="form-control profileCompany" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tags" class="col-sm-2 control-label">Tags</label>
+                                                    <div class="col-sm-10">
+                                                        <select id="profileTags" multiple="true" name="profileTags" class="form-control chosen profileTags"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+
+
+                                                        <button type="submit" class="btn btn-info updateButton">Update</button>
+
+                                                        <a class="btn btn-default btn-info" id="linkedin-login-button" onclick="onLinkedInLoad()" title="Sign in using LinkedIn account">Update using LinkedIn Account Information</a>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-5">
+                                                <h4>External social media accounts</h4>
+
+                                                <div class="external-account-wrapper">
+                                                    <button class="add-external-field btn-info btn">Add More Fields</button>
+                                                    <br /><br />
+                                                    <div class="row">
+                                                        <select class="col-sm-2 externalAccountType">
+                                                            <option>LinkedIn</option>
+                                                            <option>Google</option>
+                                                            <option>Twitter</option>
+                                                            <option>Slack</option>
+                                                            <option>Facebook</option>
+                                                            <option>Instagram</option>
+                                                            <option>Pinterest</option>
+                                                            <option>Youtube</option>
+                                                        </select>
+                                                        <div class="col-sm-8">
+                                                            <input name="externalAccount" type="text" placeholder="Account URL" class="form-control externalAccountUrl" />
+                                                        </div>
+                                                        <div class="col-sm-2"></div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--User info tab ends-->
+                                <div id="UploadAvatarTab" role="tabpanel" class="tab-pane">
+                                    <div class="panel panel-warning hidden-xs hidden-sm ">
+                                        <div class="panel-heading">
+                                            <div class="panel-title text-center">Upload Avatar Below</div>
+                                        </div>
+                                        <div class="panel panel-body">
+                                            <div name="AvatarDropzone">
+                                                <form id="avatarDropzone" action="/api/media/1" class="dropzone" method="post" enctype="multipart/form-data">
+                                                    <div class="fallback">
+                                                        <input name="file" type="file" multiple />
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--UploadAvatar-->
+                                <div id="UploadThemeTab" role="tabpanel" class="tab-pane">
+                                    <div id="UploadTheme" role="tabpanel" class="tab-pane">
+                                        <div class="panel panel-warning hidden-xs hidden-sm ">
+                                            <div class="panel-heading">
+                                                <div class="panel-title text-center">Upload Theme Below</div>
+                                            </div>
+                                            <div class="panel panel-body">
+                                                <div name="ThemeDropzone">
+                                                    <form id="themeDropzone" action="/api/media/10" class="dropzone" method="post" enctype="multipart/form-data">
+                                                        <div class="fallback">
+                                                            <input name="file" type="file" multiple />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END panel-->
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+    <link href="~/Scripts/bower_components/chosen/chosen.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+    <script src="~/Scripts/bower_components/chosen/chosen.jquery.js"></script>
+    <script src="~/Scripts/sabio.services.tags.js"></script>
+    <script type="text/javascript">
+
+        sabio.page.startUp = function () {
+
+            sabio.page.loadUser();
+            $(".chosen").data("placeholder", "Select your tags").chosen();
+            //sabio.services.tags.getTagsData(sabio.page.handlers.onGetTagsSuccess, sabio.page.handlers.onGetTagsFailure);
+            $('.updateButton').on('click', sabio.page.handlers.updateProfile);
+            sabio.page.initializeValidation();
+
+            Dropzone.options.avatarDropzone = {
+                init: function () {
+                    var thisDropzone = this;
+                    thisDropzone.on("success", function (data) {
+                        returnString = JSON.parse(data.xhr.response);
+                        var payload = returnString.item;
+                        thisDropzone.removeFile(data);
+                        sabio.services.users.setAvatar(payload, sabio.page.handlers.onAvatarMediaSuccess, sabio.page.handlers.onAvatarMediaFailure);
+                    });
+                }
+            };
+
+            Dropzone.options.themeDropzone = {
+                init: function () {
+                    var thisDropzone = this;
+                    thisDropzone.on("success", function (data) {
+                        returnString = JSON.parse(data.xhr.response);
+                        payload = returnString.item;
+                        thisDropzone.removeFile(data);
+                        sabio.services.users.setTheme(payload, sabio.page.handlers.onThemeMediaSuccess, sabio.page.handlers.onThemeMediaFailure);
+                    });
+                }
+            };
+
+            //for the external user account fields
+
+            var max_fields = 10; //maximum input boxes allowed
+            var wrapper = $(".external-account-wrapper");
+            var add_button = $(".add-external-field");
+            var template = $(".add-external-template").html();
+
+            var x = 1; //initlal text box count
+            $(add_button).click(function (e) { //on add input button click
+                e.preventDefault();
+                if (x < max_fields) { //max input box allowed
+                    x++; //text box increment
+                    $(wrapper).append(template); //add input box
+                }
+            });
+
+            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            });
+
+        };
+
+
+
+        sabio.page.initializeValidation = function () {
+            //  set defaults for the entire plugin
+            jQuery.validator.setDefaults({
+                debug: true
+            });
+            $('#currentUserProfile').validate({
+                rules: {
+                    profileName: {
+                        required: true,
+                        minlength: 2,
+                    },
+                    profileLastName: {
+                        required: true,
+                        minlength: 2,
+                    },
+                    profilePhone: {
+                        required: true,
+                    },
+                    profileMobile: {
+                        required: true,
+                    },
+                    profileWebsite: {
+                        required: false,
+                        url: true,
+                    },
+                    profileAddress: {
+                        required: false,
+                    },
+                    profileCompany: {
+                        required: false,
+                    },
+                },
+                messages: {
+                    profileName: {
+                        required: "First Name Is Required",
+                        minlength: "Must Be Longer than Two Charachters",
+                    },
+                    profileName: {
+                        required: "Last Name Is Required",
+                        minlength: "Must Be Longer than Two Charachters",
+                    },
+                    profilePhone: {
+                        required: "A Phone Number is Required",
+                        phoneUS: "Please Enter A Vaild Phone Number",
+                    },
+                    profileMobile: {
+                        required: "A Phone Number is Required",
+                        phoneUS: "Please Enter A Vaild Phone Number",
+                    },
+                    profileWebsite: {
+                        required: false,
+                        url: "Please Enter a Vaild URL",
+                    },
+                    profileAddress: {
+                        required: false,
+                    },
+                    profileCompany: {
+                        required: false,
+                    },
+                }
+
+            });
+        };
+
+        sabio.page.handlers.onAvatarMediaSuccess = function (data) {
+            console.log('avatar Update was successful');
+            sabio.page.loadUser();
+        };
+
+        sabio.page.handlers.onAvatarMediaFailure = function () {
+            console.log('(\/) (°,,,°) (\/) Failed');
+        };
+
+        sabio.page.handlers.onThemeMediaSuccess = function (data) {
+            console.log('theme Update was successful');
+            sabio.page.loadUser();
+        };
+
+        sabio.page.handlers.onThemeMediaFailure = function () {
+            console.log('(\/) (°,,,°) (\/) Failed');
+        };
+
+        sabio.page.loadUser = function () {
+            sabio.services.users.getCurrent(sabio.page.handlers.onGetUserSuccess, sabio.page.handlers.onGetTagsFailure)
+        }
+
+        sabio.page.handlers.onGetUserSuccess = function (data) {
+
+            console.log("got user", data.item);
+            $("#profileName").attr('value', data.item.profileName);
+            $("#profileLastName").attr('value', data.item.profileLastName);
+            $("#profilePhone").attr('value', data.item.profilePhone);
+            $("#profileMobile").attr('value', data.item.profileMobile);
+            $("#profileWebsite").attr('value', data.item.profileWebsite);
+            $("#profileAddress").attr('value', data.item.profileAddress);
+            $("#profileCompany").attr('value', data.item.profileCompany);
+            $("#tagline").attr('value', data.item.tagline);
+            var currentAvatar = data.item.avatar.fullUrl;
+            $('#currentUser').html(data.item.profileName);
+            sabio.page.currentAvatar = currentAvatar;
+            $("#Avatar").attr('src', sabio.page.currentAvatar);
+            var currentTheme = data.item.theme.fullUrl;
+            sabio.page.currentTheme = currentTheme;
+            $("#userTheme").attr('style', "background-image: url(" + sabio.page.currentTheme + ")");
+
+            var tags = data.item.tags;
+            sabio.page.selectedTags = [];
+
+            for (var i = 0; i < tags.length; i++) {
+                sabio.page.selectedTags.push(tags[i].id);
+            }
+
+            sabio.services.tags.getTagsData(sabio.page.handlers.onGetTagsSuccess, sabio.page.handlers.onGetTagsFailure);
+
+            sabio.page.handlers.loadExternal(data.item.externalAccounts);
+
+        };
+
+        sabio.page.handlers.onGetUserFailure = function () {
+            console.log('(\/) (°,,,°) (\/) get user Failed');
+        };
+
+        sabio.page.getDataInput = function (frm) {
+            userInfo = {};
+
+            userInfo.profileName = $("#profileName", frm).val();
+            userInfo.profileLastName = $("#profileLastName", frm).val();
+            userInfo.profilePhone = $("#profilePhone", frm).val();
+            userInfo.profileMobile = $("#profileMobile", frm).val();
+            userInfo.profileWebsite = $("#profileWebsite", frm).val();
+            userInfo.profileAddress = $("#profileAddress", frm).val();
+            userInfo.profileCompany = $("#profileCompany", frm).val();
+            userInfo.profileTags = $("#profileTags", frm).val();
+            userInfo.tagline = $("#tagline", frm).val();
+            userInfo.ExternalAccounts = sabio.page.handlers.updateExternalAccounts();
+            //console.log(userInfo.profileTags);
+            return userInfo;
+        };
+
+        sabio.page.handlers.onPutSuccess = function (data) {
+            console.log('Update success');
+            var newUpdate = data.item;
+            sabio.page.updateResponse = newUpdate;
+
+        }
+
+        sabio.page.handlers.onPutFailure = function () {
+            console.log('(\/) (°,,,°) (\/) Failed');
+        }
+
+
+        sabio.page.handlers.onUpdateSuccess = function (model) {
+            console.log('New Update was successful');
+            var returnData = model.item;
+            sabio.page.userId = returnData;
+
+            toastr.options = {
+                "positionClass": "toast-top-right"
+            };
+            toastr.success('You have been successfully updated your profile!');
+            sabio.page.handlers.reloadPage();
+        };
+
+        sabio.page.handlers.onUpdateFailure = function () {
+            console.log('(\/) (°,,,°) (\/) Failed');
+        };
+
+        sabio.page.handlers.updateProfile = function () {
+            event.preventDefault();
+            var payload = sabio.page.getDataInput();
+            sabio.services.users.update(payload, sabio.services.users.onUpdateSuccess, sabio.services.users.onUpdateFailure);
+        };
+
+
+        sabio.page.handlers.updateExternalAccounts = function () {
+            var acctTypes = [];
+            var acctUrls = [];
+            var acctsArray = [];
+            //var acctsObject = {};
+
+            $(".externalAccountType").each(function (index, element) {
+                acctTypes.push($(this).val());
+            });
+
+            $(".externalAccountUrl").each(function (index, element) {
+                acctUrls.push($(this).val());
+            });
+
+            for (var i = 0; i < acctTypes.length; i++) {
+                var pairs = {};
+                pairs.source = acctTypes[i];
+                pairs.url = acctUrls[i];
+                acctsArray.push(pairs);
+            };
+
+            //acctsObject.Items = acctsArray;
+
+            console.log(acctsArray);
+            return acctsArray;
+        };
+
+
+        sabio.page.handlers.onGetTagsSuccess = function (data) {
+            var tags = data.items;
+            for (i = 0; i < tags.length; i++) {
+                var tag = tags[i];
+                var newOption = $($('.tags-template').html());
+                var selected = -1;
+
+                if (sabio.page.selectedTags && sabio.page.selectedTags.length) {
+                    selected = sabio.page.selectedTags.indexOf(tag.id);
+                }
+
+                newOption.attr('value', tag.id)
+                newOption.text(tag.tagName)
+
+                if (selected > -1) {
+                    newOption.prop("selected", "selected");
+                }
+
+                $("#profileTags").append(newOption);
+            };
+
+
+            $(".chosen").trigger("chosen:updated");
+
+
+        };
+
+        sabio.page.handlers.onGetTagsFailure = function () {
+            console.log('failboat');
+        };
+
+
+
+        sabio.page.handlers.loadExternal = function (accountsArray) {
+            console.log(accountsArray);
+
+            for (var i = 0 ; i < accountsArray.length ; i++) {
+
+                if (i == 0) {
+                    $('.external-account-wrapper .externalAccountType').val(accountsArray[i].source);
+                    $('.external-account-wrapper .externalAccountUrl').val(accountsArray[i].url);
+                }
+
+                else {
+                    var template = $($(".add-external-template").html()).clone();
+
+                    template.find('.externalAccountType').val(accountsArray[i].source);
+                    template.find('.externalAccountUrl').val(accountsArray[i].url)
+                    $(".external-account-wrapper").append(template);
+                }
+            }
+
+        }
+
+
+        function onLinkedInLoad() {
+
+            LinkedINAuth();
+            IN.Event.on(IN, "auth", function () { onLinkedInLogin(); });
+            IN.Event.on(IN, "logout", function () { onLinkedInLogout(); });
+        }
+
+        function LinkedINAuth() {
+            IN.UI.Authorize().place();
+        }
+
+
+        function onLinkedInLogin() {
+            IN.API.Profile("me")
+              .fields(["picture-urls::(original)"
+        , "public-profile-url"
+        , "id"
+        , "first-name"
+        , "last-name"
+        , "email-address"
+        , "headline"
+        , "location"
+        , "industry"
+        , "positions"])
+              .result(sabio.page.handlers.LinkedInfo)
+              .error(function (err) {
+                  alert(err);
+              });
+        }
+
+
+        function liAuth() {
+            //
+            IN.User.authorize(function () {
+                callback();
+            });
+            //IN.UI.Authorize().place();
+        }
+
+
+        sabio.page.handlers.LinkedInfo = function (data) {
+            var linkedInfo = {};
+            linkedInfo.firstName = data.values[0].firstName;
+            linkedInfo.lastName = data.values[0].lastName;
+            linkedInfo.emailAddress = data.values[0].emailAddress;
+            linkedInfo.location = data.values[0].location.name;
+            linkedInfo.country = data.values[0].location.country.code;
+            linkedInfo.id = data.values[0].id;
+            linkedInfo.headline = data.values[0].headline;
+            linkedInfo.position = data.values[0].positions.values[0].company.name;
+            linkedInfo.industry = data.values[0].industry;
+            linkedInfo.picture = data.values[0].pictureUrls.values[0];
+            linkedInfo.profileUrl = data.values[0].publicProfileUrl;
+
+            sabio.page.handlers.updateLinkedInfo(linkedInfo);
+        }
+
+        sabio.page.handlers.updateLinkedInfo = function (data) {
+            sabio.services.externaluser.putLinkedInfo(data, sabio.page.handlers.reloadPage, sabio.page.handlers.ajaxError)
+        }
+
+        sabio.page.handlers.reloadPage = function () {
+            window.location.reload(true);
+        }
+
+
+
+    </script>
+
+    <script type="text/template" class="hidden add-external-template">
+        <!-- hidden template for adding more input fields -->
+        <div class="row externalActRow">
+            <select class="col-sm-2 externalAccountType">
+                <option>LinkedIn</option>
+                <option>Google</option>
+                <option>Twitter</option>
+                <option>Slack</option>
+                <option>Facebook</option>
+                <option>Instagram</option>
+                <option>Pinterest</option>
+                <option>Youtube</option>
+            </select>
+            <div class="col-sm-8">
+                <input name="externalAccount" type="text" placeholder="Account URL" class="form-control externalAccountUrl" />
+            </div>
+            <a href="#" class="col-sm-2 remove_field">Remove</a>
+        </div>
+        <!-- end hidden template for adding more input fields -->
+    </script>
+
+    <script type="text/template" class="tags-template">
+        <option></option>
+    </script>
+
+
+}
